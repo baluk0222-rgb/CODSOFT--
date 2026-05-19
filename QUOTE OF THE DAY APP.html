@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Daily Quote App</title>
+
+  <style>
+
+    body{
+      font-family:Arial;
+      background:#f0f0f0;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+    }
+
+    .container{
+      width:400px;
+      background:white;
+      padding:20px;
+      border-radius:10px;
+      text-align:center;
+      box-shadow:0 0 10px rgba(0,0,0,0.2);
+    }
+
+    h2{
+      margin-bottom:20px;
+    }
+
+    #quote{
+      font-size:20px;
+      margin-bottom:20px;
+      color:#333;
+    }
+
+    button{
+      padding:10px 15px;
+      border:none;
+      cursor:pointer;
+      border-radius:5px;
+      margin:5px;
+    }
+
+    .new{
+      background:green;
+      color:white;
+    }
+
+    .save{
+      background:orange;
+      color:white;
+    }
+
+    .share{
+      background:blue;
+      color:white;
+    }
+
+    ul{
+      margin-top:20px;
+      padding:0;
+    }
+
+    li{
+      list-style:none;
+      background:#eee;
+      margin-top:10px;
+      padding:10px;
+      border-radius:5px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h2>Daily Inspiring Quote</h2>
+
+    <p id="quote"></p>
+
+    <button class="new" onclick="newQuote()">
+      New Quote
+    </button>
+
+    <button class="save" onclick="saveQuote()">
+      Favorite
+    </button>
+
+    <button class="share" onclick="shareQuote()">
+      Share
+    </button>
+
+    <h3>Favorite Quotes</h3>
+
+    <ul id="favoriteList"></ul>
+
+  </div>
+
+  <script>
+
+    let quotes = [
+
+      "Believe in yourself.",
+
+      "Never give up.",
+
+      "Success comes from hard work.",
+
+      "Dream big and work hard.",
+
+      "Stay positive every day.",
+
+      "Your future is created by you."
+
+    ];
+
+    let currentQuote = "";
+
+    let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+    showFavorites();
+
+    newQuote();
+
+    function newQuote(){
+
+      let randomNumber = Math.floor(Math.random() * quotes.length);
+
+      currentQuote = quotes[randomNumber];
+
+      document.getElementById("quote").innerText = currentQuote;
+    }
+
+    function saveQuote(){
+
+      favorites.push(currentQuote);
+
+      localStorage.setItem("favorites", JSON.stringify(favorites));
+
+      showFavorites();
+    }
+
+    function showFavorites(){
+
+      let list = document.getElementById("favoriteList");
+
+      list.innerHTML = "";
+
+      for(let i=0; i<favorites.length; i++){
+
+        let li = document.createElement("li");
+
+        li.innerText = favorites[i];
+
+        list.appendChild(li);
+      }
+    }
+
+    function shareQuote(){
+
+      navigator.clipboard.writeText(currentQuote);
+
+      alert("Quote Copied!");
+    }
+
+  </script>
+
+</body>
+</html>

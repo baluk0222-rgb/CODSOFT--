@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>To Do List App</title>
+
+  <style>
+
+    body{
+      margin:0;
+      padding:0;
+      font-family:Arial, sans-serif;
+      background:#f2f2f2;
+    }
+
+    .container{
+      width:400px;
+      margin:40px auto;
+      background:white;
+      padding:20px;
+      border-radius:10px;
+      box-shadow:0 0 10px rgba(0,0,0,0.2);
+    }
+
+    h1{
+      text-align:center;
+      margin-bottom:20px;
+    }
+
+    input, select{
+      width:100%;
+      padding:10px;
+      margin-bottom:10px;
+      border:1px solid #ccc;
+      border-radius:5px;
+      font-size:15px;
+    }
+
+    button{
+      padding:10px;
+      border:none;
+      border-radius:5px;
+      cursor:pointer;
+      font-size:14px;
+    }
+
+    .add-btn{
+      width:100%;
+      background:green;
+      color:white;
+      margin-bottom:20px;
+    }
+
+    .task{
+      background:#fafafa;
+      border:1px solid #ddd;
+      padding:10px;
+      margin-bottom:10px;
+      border-radius:5px;
+    }
+
+    .completed{
+      text-decoration:line-through;
+      color:gray;
+    }
+
+    .task-buttons{
+      margin-top:10px;
+    }
+
+    .edit{
+      background:orange;
+      color:white;
+    }
+
+    .delete{
+      background:red;
+      color:white;
+    }
+
+    .done{
+      background:blue;
+      color:white;
+    }
+
+    small{
+      display:block;
+      margin-top:5px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <h1>To Do List</h1>
+
+    <input type="text" id="title" placeholder="Enter task title">
+
+    <input type="text" id="description" placeholder="Enter description">
+
+    <select id="priority">
+      <option>High Priority</option>
+      <option>Medium Priority</option>
+      <option>Low Priority</option>
+    </select>
+
+    <input type="date" id="date">
+
+    <button class="add-btn" onclick="addTask()">Add Task</button>
+
+    <div id="taskList"></div>
+
+  </div>
+
+  <script>
+
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    displayTasks();
+
+    function addTask(){
+
+      let title = document.getElementById("title").value;
+      let description = document.getElementById("description").value;
+      let priority = document.getElementById("priority").value;
+      let date = document.getElementById("date").value;
+
+      if(title == ""){
+        alert("Please enter task title");
+        return;
+      }
+
+      let task = {
+        title:title,
+        description:description,
+        priority:priority,
+        date:date,
+        completed:false
+      };
+
+      tasks.push(task);
+
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+
+      displayTasks();
+
+      document.getElementById("title").value = "";
+      document.getElementById("description").value = "";
+      document.getElementById("date").value = "";
+    }
+
+    function displayTasks(){
+
+      let taskList = document.getElementById("taskList");
+
+      taskList.innerHTML = "";
+
+      for(let i = 0; i < tasks.length; i++){
+
+        let taskDiv = document.createElement("div");
+
+        taskDiv.classList.add("task");
+
+        if(tasks[i].completed){
+          taskDiv.classList.add("completed");
+        }
+
+        taskDiv.innerHTML = `
+
+          <h3>${tasks[i].title}</h3>
+
+          <p>${tasks[i].description}</p>
+
+          <small>${tasks[i].priority}</small>
+
+          <small>Due Date: ${tasks[i].date}</small>
+
+          <div class="task-buttons">
+
+            <button class="done" onclick="completeTask(${i})">
+              ${tasks[i].completed ? "Active" : "Completed"}
+            </button>
+
+            <button class="edit" onclick="editTask(${i})">
+              Edit
+            </button>
+
+            <button class="delete" onclick="deleteTask(${i})">
+              Delete
+            </button>
+
+          </div>
+
+        `;
+
+        taskList.appendChild(taskDiv);
+
+      }
+
+    }
+
+    function completeTask(index){
+
+      tasks[index].completed = !tasks[index].completed;
+
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+
+      displayTasks();
+
+    }
+
+    function deleteTask(index){
+
+      tasks.splice(index, 1);
+
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+
+      displayTasks();
+
+    }
+
+    function editTask(index){
+
+      let newTitle = prompt("Edit title", tasks[index].title);
+
+      let newDescription = prompt("Edit description", tasks[index].description);
+
+      if(newTitle != null){
+
+        tasks[index].title = newTitle;
+
+        tasks[index].description = newDescription;
+
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+
+        displayTasks();
+
+      }
+
+    }
+
+  </script>
+
+</body>
+</html>

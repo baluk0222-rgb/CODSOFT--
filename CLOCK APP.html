@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Alarm App</title>
+
+  <style>
+
+    body{
+      font-family:Arial;
+      text-align:center;
+      background:#f2f2f2;
+    }
+
+    .box{
+      background:white;
+      width:250px;
+      margin:50px auto;
+      padding:20px;
+      border-radius:10px;
+    }
+
+    #time{
+      font-size:30px;
+      margin:10px;
+    }
+
+    input,button{
+      width:100%;
+      padding:10px;
+      margin-top:10px;
+    }
+
+    li{
+      background:#eee;
+      margin-top:10px;
+      padding:10px;
+      list-style:none;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="box">
+
+    <h2>Alarm Clock</h2>
+
+    <div id="time"></div>
+
+    <input type="time" id="alarm">
+
+    <button onclick="setAlarm()">Set Alarm</button>
+
+    <ul id="list"></ul>
+
+  </div>
+
+  <script>
+
+    let alarms = [];
+
+    setInterval(showTime,1000);
+
+    function showTime(){
+
+      let now = new Date();
+
+      document.getElementById("time").innerText =
+      now.toLocaleTimeString();
+
+      let current =
+      now.getHours().toString().padStart(2,"0")
+      + ":" +
+      now.getMinutes().toString().padStart(2,"0");
+
+      for(let i=0; i<alarms.length; i++){
+
+        if(alarms[i] == current){
+
+          alert("Alarm Ringing");
+
+        }
+
+      }
+
+    }
+
+    function setAlarm(){
+
+      let time =
+      document.getElementById("alarm").value;
+
+      alarms.push(time);
+
+      showAlarm();
+
+    }
+
+    function showAlarm(){
+
+      let list =
+      document.getElementById("list");
+
+      list.innerHTML = "";
+
+      for(let i=0; i<alarms.length; i++){
+
+        list.innerHTML +=
+        `<li>${alarms[i]}</li>`;
+
+      }
+
+    }
+
+  </script>
+
+</body>
+</html>
