@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Restaurant Menu</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background-color: #f8f8f8;
+        }
+
+        .header {
+            background-color: #c0392b;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .menu-container {
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        .category {
+            margin-bottom: 30px;
+        }
+
+        .category h2 {
+            background: #e74c3c;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .item {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .item-name {
+            font-weight: bold;
+        }
+
+        .price {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 12px;
+            color: gray;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .menu-container {
+                width: 95%;
+            }
+
+            .item {
+                flex-direction: column;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1>🍽️ My Restaurant Menu</h1>
+        <p>Fresh & Delicious Food</p>
+    </div>
+
+    <!-- MENU -->
+    <div class="menu-container">
+
+        <!-- STARTERS -->
+        <div class="category">
+            <h2>Starters</h2>
+
+            <div class="item">
+                <span class="item-name">Veg Soup</span>
+                <span class="price">₹80</span>
+            </div>
+
+            <div class="item">
+                <span class="item-name">Chicken Wings</span>
+                <span class="price">₹150</span>
+            </div>
+        </div>
+
+        <!-- MAIN COURSE -->
+        <div class="category">
+            <h2>Main Course</h2>
+
+            <div class="item">
+                <span class="item-name">Paneer Butter Masala</span>
+                <span class="price">₹180</span>
+            </div>
+
+            <div class="item">
+                <span class="item-name">Chicken Biryani</span>
+                <span class="price">₹220</span>
+            </div>
+        </div>
+
+        <!-- DESSERTS -->
+        <div class="category">
+            <h2>Desserts</h2>
+
+            <div class="item">
+                <span class="item-name">Ice Cream</span>
+                <span class="price">₹70</span>
+            </div>
+
+            <div class="item">
+                <span class="item-name">Gulab Jamun</span>
+                <span class="price">₹60</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        © 2026 Restaurant Menu | Designed for UI/UX Practice
+    </div>
+
+</body>
+</html>
